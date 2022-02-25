@@ -3,3 +3,5 @@ pandas
 plotly-express
 numpy
 matplotlib
+lightgbm
+scikit-learn
