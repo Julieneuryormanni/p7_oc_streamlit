@@ -4,11 +4,13 @@ import pickle
 import plotly_express as px
 import numpy as np
 import matplotlib.pyplot as plt
+import lightgbm as lgb
+from lightgbm import LGBMClassifier
 
-lgb = open("LightGBMModel.pkl","rb")
-lgbm = pickle.load(lgb)
-km = open("Kmean.pkl","rb")
-kmean = pickle.load(km)
+model_lgb = open("LightGBMModel.pkl","rb")
+LGBM = pickle.load(model_lgb)
+model_km = open("Kmean.pkl","rb")
+kmean = pickle.load(model_km)
 data_client = pd.read_feather('data_client')
 data_client.sort_values(by=['SK_ID_CURR'], inplace = True)
 
@@ -219,7 +221,7 @@ Bad = """
 sample = data_lgb.loc[id].values.reshape(1,-1)
 
 if st.sidebar.button("Prédiction"):
-    if lgbm.predict(sample).item()==0:
+    if LGBM.predict(sample).item()==0:
         st.sidebar.markdown(Good, unsafe_allow_html=True)
     else:
         st.sidebar.markdown(Bad, unsafe_allow_html=True)
@@ -261,7 +263,7 @@ with c1:
     <p style = "color:grey; text-align:center; font-weight : bold; font-size : 25px"> Caractéristiques financières du client</p>
     """
     st.markdown(radar_client, unsafe_allow_html=True)
-    target = lgbm.predict(data_lgb.values)
+    target = LGBM.predict(data_lgb.values)
     data_client['TARGET']=target
     radar_cols = ['SK_ID_CURR', 'TARGET',
               'Salaire (K$)','Annuité(K$)', 'Crédit (K$)', 'Annuité/Revenu (%)', 'Age', 'cluster']
