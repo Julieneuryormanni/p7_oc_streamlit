@@ -251,8 +251,9 @@ data_client['cluster'] = cluster
 profile_cols = ['SK_ID_CURR','Genre', 'Contrat', 'Situation familiale', 'Education', "Début d'emploi (an)", 'cluster']
 client_profile = data_client[profile_cols]
 client_profile.set_index('SK_ID_CURR', inplace = True)
-client_profile["Début d'emploi (an)"] = client_profile["Début d'emploi (an)"].astype('str')
 client_profile["Début d'emploi (an)"] = client_profile["Début d'emploi (an)"].fillna('Non renseigné')
+client_profile["Début d'emploi (an)"] = client_profile["Début d'emploi (an)"].astype('str')
+
 
 cluster = (data_client['cluster'].loc[data_client['SK_ID_CURR'] == id]).item()
 simi = client_profile[client_profile['cluster']==cluster].drop('cluster', axis = 1).head()
