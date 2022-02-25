@@ -5,11 +5,11 @@ import plotly_express as px
 import numpy as np
 import matplotlib.pyplot as plt
 
-lgb = open(r"C:\Users\neury\Documents\Python\P7\Streamlit_Apps\LightGBMModel.pkl","rb")
+lgb = open("LightGBMModel.pkl","rb")
 lgbm = pickle.load(lgb)
-km = open(r"C:\Users\neury\Documents\Python\P7\Streamlit_Apps\Kmean.pkl","rb")
+km = open("Kmean.pkl","rb")
 kmean = pickle.load(km)
-data_client = pd.read_feather(r'C:\Users\neury\Documents\Python\P7\Streamlit_Apps\data_client')
+data_client = pd.read_feather('data_client')
 data_client.sort_values(by=['SK_ID_CURR'], inplace = True)
 
 #Préparation du df qui va servir à la prédiction
