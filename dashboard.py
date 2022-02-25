@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import lightgbm as lgb
 from lightgbm import LGBMClassifier
+from sklearn.cluster import KMeans
 
 model_lgb = open("LightGBMModel.pkl","rb")
 LGBM = pickle.load(model_lgb)
