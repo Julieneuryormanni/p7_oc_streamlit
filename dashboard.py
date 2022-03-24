@@ -1,4 +1,5 @@
 import pandas as pd
+import requests
 import streamlit as st
 import pickle
 import plotly_express as px
@@ -219,10 +220,9 @@ Bad = """
 <h3 style = "color:white; text-align:center;"> MAUVAIS REMBOURSEUR</<h3>
 </div>
 """
-sample = data_lgb.loc[id].values.reshape(1,-1)
-
+api_response = requests.get('https://api-loan-prediction.herokuapp.com/loan/' + str(id))
 if st.sidebar.button("Prédiction"):
-    if LGBM.predict(sample).item()==0:
+    if api_response.json()['prediction']==0:
         st.sidebar.markdown(Good, unsafe_allow_html=True)
     else:
         st.sidebar.markdown(Bad, unsafe_allow_html=True)
